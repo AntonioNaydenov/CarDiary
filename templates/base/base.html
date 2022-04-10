@@ -1,0 +1,35 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <title>Car Diary</title>
+</head>
+
+<body>
+<!-- Navigation Bar -->
+<nav>
+    <ul>
+        <li class="img"><img src="{% static 'images/car_png.png' %}" alt="car"
+        width="50" height="50" ></li>
+        <li><a href="{% url 'home page' %}">Car Diary</a></li>
+        {% if  user_logged  %}
+            <li class="right"><a href="">Profile</a></li>
+        {% endif %}
+    </ul>
+</nav>
+<!-- End Navigation Bar -->
+
+<div class="body">
+    {% block page_contnent %}
+    {% endblock %}
+</div>
+
+<footer>
+
+</footer>
+
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+{% extends 'base/base.html' %}
+{% block page_contnent %}
+    <!-- Summary -->
+    <div>
+        <h1>Summary</h1>
+        <ul class="expenses-list">
+            <!-- User Budget -->
+            <li class="blue"></li>
+                <li class="red"> </li>
+
+            <li class="green"></li>
+        </ul>
+    </div>
+    <!-- End Summary -->
+
+    <!-- Headline My Expenses -->
+    <h1>My Expenses</h1>
+    <!-- Add Expense Button -->
+    <a class="button add" href="">Add Expense</a>
+
+    <div class="expenses-container">
+
+        <div class="expense-container">
+            <!-- Expense Title -->
+            <h2></h2>
+            <!-- Expense Image -->
+            <img src="" alt="description">
+            <!-- Expense Description -->
+            <p></p>
+            <div class="expense-detail">
+                <div>
+                    <!-- Expense Price -->
+
+                    <p>Price</p>
+                </div>
+                <div class="right">
+                    <!-- Edit Expense Button -->
+                    <a class="button edit" href="">Edit</a>
+                    <!-- Delete Expense Button -->
+                    <a class="button delete" href="">Delete</a>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+
+    </div>
