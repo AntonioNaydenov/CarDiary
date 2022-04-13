@@ -1,0 +1,53 @@
+{% extends 'base/base.html' %}
+{% block page_contnent %}
+<div>
+   <div class="grid-container full">
+  <div class="grid-x grid-margin-x">
+    <div class="cell small-4"> </div>
+      <h1>---   YOUR DASHBOARD   ---</h1>
+
+    <div class="cell small-4"> </div>
+    <div class="cell small-4"> </div>
+  </div>
+   </div>
+
+<style>
+.float-container {
+    border: 3px solid #fff;
+    padding: 50px;
+}
+
+.float-child {
+
+    float: left;
+    padding: 50px;
+
+}
+
+  </style>
+<div class="float-container">
+{% for car in cars  %}
+
+
+  <div class="float-child">
+    <div class="card" style="width: 300px;">
+  <div class="card-divider">
+    {{ car.make }} {{ car.model }}
+  </div>
+  <img src="{{ car.image_url }}">
+  <div class="card-section">
+    <h4>{{ car.current_km }} KM</h4>
+    <p>{{ car.description }}</p>
+    <a class="button primary" href="">Details</a>
+  </div>
+</div>
+  </div>
+
+
+
+{% endfor %}
+
+</div>
+
+{% endblock %}
+

@@ -3,23 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/foundation.css' %}">
     <title>Car Diary</title>
 </head>
 
 <body>
 <!-- Navigation Bar -->
-<nav>
-    <ul>
-        <li class="img"><img src="{% static 'images/car_png.png' %}" alt="car"
-        width="50" height="50" ></li>
-        <li><a href="{% url 'home page' %}">Car Diary</a></li>
-        {% if  user_logged  %}
-            <li class="right"><a href="">Profile</a></li>
-        {% endif %}
+<div class="top-bar">
+  <div class="top-bar-left">
+      <ul class="dropdown menu" data-dropdown-menu>
+          <img src="{% static 'images/car_png.png' %}" alt="logo" width="75"
+               height="75">
+          <li class="menu-text"><a href="{% url 'dashboard' %}">Car Diary</a></li>
+</div>
+    <div class="top-bar-right">
+          <ul class="menu">
+    {% if user.is_authenticated %}
+        <li><a href="{% url 'add_car' %}">Add Car</a></li>
+        <li><a href="{% url 'profile details' request.user.id %}">My Profile</a></li>
+        <li><a href="{% url 'logout' %}">Log out</a></li>
+    {% else %}
+        <li><a href="{% url 'login page' %}">Log In</a></li>
+        <li><a href="{% url 'register page' %}">Sigh Up</a></li>
+    {% endif %}
     </ul>
-</nav>
-<!-- End Navigation Bar -->
+  </div>
+</div>
+
 
 <div class="body">
     {% block page_contnent %}

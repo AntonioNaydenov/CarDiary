@@ -1,9 +1,8 @@
 from django.urls import path
 
-from CarDiary.web.views import show_index, register_page, login_page
+from CarDiary.web.views import CarRegistrationView, show_dashboard
 
 urlpatterns = (
-    path('', show_index, name='home page'),
-    path('register/', register_page, name='register page'),
-    path('login/', login_page, name='login page'),
+    path('', show_dashboard, name='dashboard'),
+    path('add-car/', CarRegistrationView.as_view(), name='add_car'),
 )

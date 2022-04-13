@@ -1,33 +1,27 @@
 from django.shortcuts import render, redirect
-
-from CarDiary.web.forms import CreateProfileForm
-
-
-def show_index(request):
-    user = False
-    if request.user.is_authenticated:
-        user = True
-    context = {
-        'user_logged': user
-    }
-    return render(request, "home-page.html", context)
+from django.urls import reverse_lazy
+from django.views import generic as views
+from CarDiary.common.view_mixins import RedirectToDashboard
+from CarDiary.web.forms import CarRegistrationForm
+from CarDiary.web.models import Car
 
 
-def register_page(request):
-    if request.method == 'POST':
-        form = CreateProfileForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('show_index')
-    else:
-        form = CreateProfileForm()
+def show_dashboard(request):
+
+    cars = list(Car.objects.filter(user_id=request.user.id))
 
     context = {
-        'form': form
+        'cars': cars
     }
+    return render(request, 'main/dashboard.html', context)
 
-    return render(request, 'register-page.html', context)
 
+class CarRegistrationView(views.CreateView):
+    form_class = CarRegistrationForm
+    template_name = 'main/add-car.html'
+    success_url = reverse_lazy('dashboard')
 
-def login_page(request):
-    return render(request, 'login-page.html')
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs

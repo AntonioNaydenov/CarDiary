@@ -1,5 +1,9 @@
+from django.contrib.auth import get_user_model
 from django.core.validators import MinLengthValidator, MinValueValidator, MaxValueValidator
 from django.db import models
+from datetime import date
+
+UserModel = get_user_model()
 
 
 class Car(models.Model):
@@ -14,6 +18,15 @@ class Car(models.Model):
 
     HP_MIN = 1
     HP_MAX = 2999
+
+    LAST_SERVICED_KM_MIN = 1
+    LAST_SERVICED_KM_MAX = 999999999
+
+    CURRENT_KM_MIN = 1
+    CURRENT_KM_MAX = 999999999
+
+    YEAR_MIN = 1800
+    YEAR_MAX = date.today().year
 
     TYPE_SEDAN = 'Sedan'
     TYPE_HATCHBACK = 'Hatchback'
@@ -45,6 +58,12 @@ class Car(models.Model):
         choices=TYPES,
     )
 
+    year = models.IntegerField(
+        validators=(MinValueValidator(YEAR_MIN),
+                    MaxValueValidator(YEAR_MAX),
+                    )
+    )
+
     transmission = models.CharField(
         max_length=max(len(x) for x, _ in TRANSMISSIONS),
         choices=TRANSMISSIONS,
@@ -57,6 +76,20 @@ class Car(models.Model):
         )
     )
 
+    current_km = models.IntegerField(
+        validators=(
+            MinValueValidator(CURRENT_KM_MIN),
+            MaxValueValidator(CURRENT_KM_MAX),
+        )
+    )
+
+    last_serviced_at_km = models.IntegerField(
+        validators=(
+            MinValueValidator(LAST_SERVICED_KM_MIN),
+            MaxValueValidator(LAST_SERVICED_KM_MAX),
+        )
+
+    )
     horse_power = models.IntegerField(
         validators=(
             MinValueValidator(HP_MIN),
@@ -72,4 +105,9 @@ class Car(models.Model):
     description = models.TextField(
         blank=True,
         null=True,
+    )
+
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
     )

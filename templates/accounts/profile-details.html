@@ -1,0 +1,34 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block page_contnent %}
+<div class="grid-container full">
+  <div class="grid-x grid-margin-x">
+    <div class="cell small-4"> </div>
+    <div class="cell small-4">  <h1>Your Profile</h1>
+    <div class="container">
+        <div class="container">
+            <h2>{{ profile.first_name}} {{ profile.last_name }}</h2>
+
+            <img src="{{profile.image}}" alt="profile pic" width="500"
+            height="500">
+
+            <p>Total Cars Registered: {{ cars_count }}</p>
+            {% if next_car_to_service %}
+                <p>Next Car For Service: {{ next_car_to_service.make }} {{ next_car_to_service.model }}
+                (Last Serviced: {{ next_car_to_service.last_serviced_at_km }} KM)</p>
+            {% endif %}
+
+                <div class="right">
+                <!-- Edit Profile Button -->
+                <a class="button edit" href="{% url 'password_change' %}">Change Password</a>
+                <a class="button alert" href="{% url 'logout' %}">Log Out</a>
+                <a class="button alert" href="{% url 'delete profile' %}">Delete Profile</a>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+    <!-- End Your Profile Data -->
+{% endblock %}
