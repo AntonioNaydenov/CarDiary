@@ -21,7 +21,7 @@
     {% if user.is_authenticated %}
         <li><a href="{% url 'add_car' %}">Add Car</a></li>
         <li><a href="{% url 'profile details' request.user.id %}">My Profile</a></li>
-        <li><a href="{% url 'logout' %}">Log out</a></li>
+        <li><a href="{% url 'log out' %}">Log out</a></li>
     {% else %}
         <li><a href="{% url 'login page' %}">Log In</a></li>
         <li><a href="{% url 'register page' %}">Sigh Up</a></li>

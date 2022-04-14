@@ -1,53 +1,280 @@
 {% extends 'base/base.html' %}
 {% block page_contnent %}
-<div>
-   <div class="grid-container full">
-  <div class="grid-x grid-margin-x">
-    <div class="cell small-4"> </div>
-      <h1>---   YOUR DASHBOARD   ---</h1>
+    <div>
+    {% if request.user.is_authenticated %}
+        {% if cars %}
+            <div class="grid-container full">
+                <div class="grid-x grid-margin-x">
+                    <div class="cell small-4"></div>
+                    <h1>--- YOUR DASHBOARD ---</h1>
 
-    <div class="cell small-4"> </div>
-    <div class="cell small-4"> </div>
-  </div>
-   </div>
+                    <div class="cell small-4"></div>
+                    <div class="cell small-4"></div>
+                </div>
+            </div>
+        {% endif %}
+        <style>
 
-<style>
-.float-container {
-    border: 3px solid #fff;
-    padding: 50px;
-}
+            .float-container {
 
-.float-child {
+                padding: 50px;
+            }
 
-    float: left;
-    padding: 50px;
+            .float-child {
 
-}
+                float: left;
+                padding: 50px;
 
-  </style>
-<div class="float-container">
-{% for car in cars  %}
+            }
 
+            .container .card .icon {
 
-  <div class="float-child">
-    <div class="card" style="width: 300px;">
-  <div class="card-divider">
-    {{ car.make }} {{ car.model }}
-  </div>
-  <img src="{{ car.image_url }}">
-  <div class="card-section">
-    <h4>{{ car.current_km }} KM</h4>
-    <p>{{ car.description }}</p>
-    <a class="button primary" href="">Details</a>
-  </div>
-</div>
-  </div>
+                position: fixed;
+
+                top: 0;
+
+                left: 0;
+
+                width: 100%;
+
+                height: 100%;
 
 
+            }
 
-{% endfor %}
+            .container .card .icon .fa {
 
-</div>
+                position: absolute;
 
+                top: 50%;
+
+                left: 50%;
+
+                transform: translate(-50%, -50%);
+
+                font-size: 80px;
+
+                color: #fff;
+
+            }
+
+            .container .card .slide {
+
+                width: 300px;
+
+                height: 200px;
+
+                transition: 0.5s;
+
+            }
+
+            .container .card .slide.slide1 {
+
+                position: relative;
+
+                display: flex;
+
+                justify-content: center;
+
+                align-items: center;
+
+                z-index: 1;
+
+                transition: .7s;
+
+                transform: translateY(100px);
+
+            }
+
+            .container .card:hover .slide.slide1 {
+
+                transform: translateY(0px);
+
+            }
+
+            .container .card .slide.slide2 {
+
+                position: relative;
+
+                display: flex;
+
+                justify-content: center;
+
+                align-items: center;
+
+                padding: 20px;
+
+                box-sizing: border-box;
+
+                transition: .8s;
+
+                transform: translateY(-100px);
+
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+
+            }
+
+            .container .card:hover .slide.slide2 {
+
+                transform: translateY(0);
+
+            }
+
+            .container .card .slide.slide2::after {
+
+                content: "";
+
+                position: absolute;
+
+                width: 30px;
+
+                height: 4px;
+
+                bottom: 15px;
+
+                left: 50%;
+
+                left: 50%;
+
+                transform: translateX(-50%);
+
+                background: #2c73df;
+
+            }
+
+            .container .card .slide.slide2 .content p {
+
+                margin: 0;
+
+                padding: 0;
+
+                text-align: center;
+
+                color: #414141;
+
+            }
+
+            .container .card .slide.slide2 .content h3 {
+
+                margin: 0 0 10px 0;
+
+                padding: 0;
+
+                font-size: 24px;
+
+                text-align: center;
+
+                color: #414141;
+
+            }
+
+            .card {
+                border: #cacaca;
+            }
+
+
+        </style>
+        {% if cars %}
+            <div class="float-container">
+            {% for car in cars %}
+
+
+                <div class="float-child">
+                    <div class="container">
+
+
+                        <div class="card">
+
+                            <div class="slide slide1">
+
+                                <div class="content">
+
+
+                                    {% if car.image_url %}
+                                        <img class="icon" src="{{ car.image_url }}" alt="car" width="300" height="200">
+                                    {% else %}
+                                        <img class="icon"
+                                             src="https://www.zimmermanhonda.com/app/zh/assets/addons/zh/zh/zimmermanhonda-theme/resources/img/no-Image-available.png?v=1593450422"
+                                             alt="car" width="300" height="200">
+                                    {% endif %}
+
+
+                                </div>
+
+                            </div>
+
+                            <div class="slide slide2">
+
+                                <div class="content">
+
+                                    <h3>
+
+                                        {{ car.make }} {{ car.model }}
+
+                                    </h3>
+
+                                    <p>Year: {{ car.year }}</p>
+                                    <p>KM: {{ car.current_km }}</p>
+                                    <p>Last Serviced: {{ car.last_serviced_at_km }}</p>
+                                    <a class="primary button" href="{% url 'car details' car.id %}">Details</a>
+                                    <a class="primary button" href="{% url 'car edit' car.id %}">Edit</a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+
+            {% endfor %}
+        {% else %}
+            <div class="grid-container full">
+            <div class="grid-x grid-margin-x">
+                <div class="cell small-4"></div>
+
+
+                <div class="cell small-4"><h1>YOU HAVE NO CARS YET</h1></div>
+                <div class="cell small-4"></div>
+            </div>
+            <div class="grid-container full">
+            <div class="grid-x grid-margin-x">
+                <div class="cell small-4"></div>
+
+
+                <div class="cell small-4">
+                    <a class="success button expanded" href="{% url 'add_car' %}">ADD CAR</a>
+                </div>
+                <div class="cell small-4"></div>
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="grid-container full">
+            <div class="grid-x grid-margin-x">
+                <div class="cell small-4"></div>
+
+
+                <div class="cell small-4">
+                    <div class="container">
+                        <img src="https://www.meme-arsenal.com/memes/2d4334631b43f3ae0478e6fb959cab27.jpg">
+                        <h1>You do not have an account.</h1>
+                        <h6>Click <a href="{% url 'register page' %}">here</a> to get started in matter of seconds</h6>
+                        <h6>Already a member ---> <a href="{% url 'login page' %}">Log In</a></h6>
+                    </div>
+
+                </div>
+                <div class="cell small-4">
+
+                </div>
+            </div>
+
+
+        </div>
+    {% endif %}
 {% endblock %}
 
+</div>

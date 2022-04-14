@@ -6,7 +6,7 @@ from django.contrib.auth import views as auth_views
 from django.views import generic as views
 import math
 
-from CarDiary.auth_app.forms import CreateProfileForm, DeleteProfileForm, EditProfileForm
+from CarDiary.auth_app.forms import CreateProfileForm, DeleteProfileForm
 from CarDiary.auth_app.models import Profile
 from CarDiary.common.helpers import get_next_car_to_service
 from CarDiary.common.view_mixins import RedirectToDashboard
@@ -27,6 +27,10 @@ class UserLoginView(auth_views.LoginView):
         if self.success_url:
             return self.success_url
         return super().get_success_url()
+
+
+class UserLogoutView(auth_views.LogoutView):
+    pass
 
 
 class ProfileDetailsView(views.DetailView):

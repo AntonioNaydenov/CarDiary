@@ -66,12 +66,6 @@ class Profile(models.Model):
         default=DO_NOT_SPECIFY,
     )
 
-    email = models.EmailField(
-        null=True,
-        blank=True,
-        unique=True,
-    )
-
     user = models.OneToOneField(
         CarDiaryUser,
         on_delete=models.CASCADE,

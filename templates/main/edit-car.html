@@ -1,0 +1,18 @@
+{% extends 'base/base.html' %}
+{% block page_contnent %}
+    {% if request.user.id == car.user_id %}
+    <div class="grid-container full">
+        <div class="grid-x grid-margin-x">
+            <div class="cell small-4"></div>
+
+            <div class="cell small-4">
+                <h1>Edit your car info:</h1>
+                <div class="container">
+                    {{ form }}
+                    {% csrf_token %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}

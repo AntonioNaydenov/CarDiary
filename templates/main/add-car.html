@@ -1,14 +1,22 @@
 {% extends 'base/base.html' %}
 {% block page_contnent %}
+    <div class="grid-container full">
+        <div class="grid-x grid-margin-x">
+            <div class="cell small-4"></div>
 
-    <h1>Enter your data</h1>
+            <div class="cell small-4">
+                <h1>Enter your data</h1>
 
-    <div class="form">
-        <form method="POST" action="{% url 'add_car' %}" enctype="multipart/form-data">
-           {{ form }}
-           {% csrf_token %}
-            <input class="button primary" type="submit" value="Submit">
-        </form>
+                <div class="form">
+                    <form method="POST" action="{% url 'add_car' %}" enctype="multipart/form-data">
+                        {{ form }}
+                        {% csrf_token %}
+                        <input class="button primary" type="submit" value="Add Car">
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+
     <!-- End Profile Create Form -->
 {% endblock %}

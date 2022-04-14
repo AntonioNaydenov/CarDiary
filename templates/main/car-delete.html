@@ -1,0 +1,13 @@
+{% extends 'base/base.html' %}
+{% block page_contnent %}
+    {% if request.user.id == car.user_id %}
+    <h1>Are you sure you want to delete {{ car.make }} {{ car.model }} form your profile?</h1>
+    <form method="POST" action="{% url 'car delete' car.id %}">
+        {{ form }}
+        {% csrf_token %}
+        <!-- Confirm Button -->
+        <button class="alert button ">Confirm</button>
+    </form>
+    {% endif %}
+{% endblock %}
+

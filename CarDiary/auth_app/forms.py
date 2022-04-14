@@ -14,8 +14,6 @@ class CreateProfileForm(BootstrapFormMixin, auth_forms.UserCreationForm):
     )
     image = forms.URLField()
 
-    email = forms.EmailField()
-
     gender = forms.ChoiceField(
         choices=Profile.GENDERS,
     )
@@ -31,7 +29,6 @@ class CreateProfileForm(BootstrapFormMixin, auth_forms.UserCreationForm):
             first_name=self.cleaned_data['first_name'],
             last_name=self.cleaned_data['last_name'],
             image=self.cleaned_data['image'],
-            email=self.cleaned_data['email'],
             gender=self.cleaned_data['gender'],
             user=user,
         )
@@ -42,7 +39,7 @@ class CreateProfileForm(BootstrapFormMixin, auth_forms.UserCreationForm):
 
     class Meta:
         model = get_user_model()
-        fields = ('username', 'password1', 'password2', 'email', 'first_name', 'last_name',
+        fields = ('username', 'password1', 'password2', 'first_name', 'last_name',
                   'image', 'gender',)
         widgets = {
                 'first_name': forms.TextInput(
@@ -60,41 +57,6 @@ class CreateProfileForm(BootstrapFormMixin, auth_forms.UserCreationForm):
                         'placeholder': 'Enter URL',
                     }
                 ),
-        }
-
-
-class EditProfileForm(BootstrapFormMixin, forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self._init_bootstrap_form_controls()
-        self.initial['gender'] = Profile.DO_NOT_SPECIFY
-
-    class Meta:
-        model = Profile
-        fields = '__all__'
-        widgets = {
-            'first_name': forms.TextInput(
-                attrs={
-                    'placeholder': 'Enter first name',
-                }
-            ),
-            'last_name': forms.TextInput(
-                attrs={
-                    'placeholder': 'Enter last name',
-                }
-            ),
-            'image': forms.TextInput(
-                attrs={
-                    'placeholder': 'Enter URL',
-                }
-            ),
-            'email': forms.EmailInput(
-                attrs={
-                    'placeholder': 'Enter email',
-                }
-            ),
-
-
         }
 
 

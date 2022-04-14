@@ -1,0 +1,74 @@
+{% extends 'base/base.html' %}
+{% block page_contnent %}
+    <div class="grid-container full">
+        <div class="grid-x grid-margin-x">
+            <div class="cell small-4"></div>
+
+            <div class="cell small-4">
+                <div class="container">
+                    <h1>{{ car.make }} {{ car.model }}</h1>
+                    {% if car.image_url %}
+                        <img src="{{ car.image_url }}" width="500" height="500">
+                    {% else %}
+                        <img src="https://www.zimmermanhonda.com/app/zh/assets/addons/zh/zh/zimmermanhonda-theme/resources/img/no-Image-available.png?v=1593450422" width="500" height="500">
+                    {% endif %}
+                    <div class="container">
+                    {% if request.user.id == car.user_id %}
+                        <a class="button primary" href="{% url 'car edit' car.id %}">Edit</a>
+                        <a class="button alert" href="{% url 'car delete' car.id %}">Delete</a>
+                    {% endif %}
+                    </div>
+                    <h3>Notes:</h3>
+                    <h5>{{ car.description }}</h5>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th width="200">Specifications</th>
+                            <th></th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Year</td>
+                            <td>{{ car.year }}</td>
+
+                        </tr>
+                        <tr>
+                            <td>Type</td>
+                            <td>{{ car.type }}</td>
+                        </tr>
+                        <tr>
+                            <td>Engine Size</td>
+                            <td>{{ car.engine_size_cc }} CC</td>
+                        </tr>
+                        <tr>
+                            <td>Horse Power</td>
+                            <td>{{ car.horse_power }}</td>
+                        </tr>
+                        <tr>
+                            <td>Current KM</td>
+                            <td>{{ car.current_km }}</td>
+                        </tr>
+                        <tr>
+                            <td>Last Serviced</td>
+                            <td>{{ car.last_serviced_at_km }}</td>
+                        </tr>
+                        <tr>
+                            <td>KM Without Service</td>
+                            <td>{{ km_without_service }}</td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+            <div class="cell small-4"></div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+{% endblock %}
