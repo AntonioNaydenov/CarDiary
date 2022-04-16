@@ -8,8 +8,11 @@
             <div class="cell small-4">
                 <h1>Edit your car info:</h1>
                 <div class="container">
+                    <form method="POST" action="{% url 'car edit' car.id %}">
                     {{ form }}
                     {% csrf_token %}
+                    <input class="button primary" type="submit" value="Apply Changes">
+                    </form>
                 </div>
             </div>
         </div>

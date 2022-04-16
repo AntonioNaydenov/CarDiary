@@ -61,3 +61,5 @@ class CarDeleteView(views.DeleteView):
 
 
 
+
+
